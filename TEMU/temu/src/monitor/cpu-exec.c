@@ -66,7 +66,10 @@ void cpu_exec(volatile uint32_t n) {
 #endif
 
 		/* TODO: check watchpoints here. */
-
+		bool check_wp();
+		if(check_wp()){
+			temu_state = STOP;
+		}
 
 		if(temu_state != RUNNING) { return; }
 	}

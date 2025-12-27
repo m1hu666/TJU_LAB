@@ -1,4 +1,6 @@
 #include "monitor.h"
+#include "expr.h"
+#include "watchpoint.h"
 #include "temu.h"
 
 #include <stdlib.h>
@@ -36,6 +38,78 @@ static int cmd_q(char *args) {
 	return -1;
 }
 
+static int cmd_si(char *args){
+	int time = 0;
+	if(args!= NULL) {
+		sscanf(args, "%d", &time);
+	}
+	else cpu_exec(1);
+	cpu_exec(time);
+	return 0;
+}
+
+void print_wp();
+static int cmd_info(char *args){
+	if(*args == 'r'){
+		display_reg();
+	}
+
+	if(*args == 'w'){
+		print_wp();
+	}
+	return 0;
+}
+
+static int cmd_x(char *args){
+	char* arg1 = strtok(NULL, " ");
+	char* arg2 = strtok(NULL, " ");
+	uint32_t address; int range =0;
+	sscanf(arg1,"%d", &range); 	
+	sscanf(arg2,"%x",&address);
+	int i=0; int data;
+	// uint8_t buf[4];
+	for (i=0;i<range;i++){
+		printf("0x%08x: ",address+i*4);
+		data=mem_read(address+i*4, 4);
+		int j=0; 
+		for(j=0;j<4;j++){
+			printf("0x%02x ", data&0xff);
+			//  buf[3-j]=data&0xff;
+			data=data>>8; 
+		}
+		// for(j=0;j<4;j++){
+		// 	printf("0x%02x ", buf[j]);
+		// }
+		printf("\n");
+	}
+	return 0;
+}
+
+static int cmd_p(char *args){
+	bool success = false;
+	int res=expr(args, &success);
+	printf("0x%08x(%d)\n", res,res);
+	return 0;
+}
+
+WP* new_wp();
+static int cmd_w(char *args){
+	    WP *wp = new_wp();
+		bool success = false;
+	    strcpy(wp->expr, args);
+		wp->val=expr(wp->expr, &success);
+		printf("Set watchpoint \n");
+		return 0;
+}
+
+void delete_wp(int n);
+static int cmd_d(char *args){
+   int NO;
+   sscanf(args, "%d", &NO);
+   delete_wp(NO);
+   return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -45,10 +119,15 @@ static struct {
 } cmd_table [] = {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
-	{ "q", "Exit TEMU", cmd_q }
+	{ "q", "Exit TEMU", cmd_q },
 
 	/* TODO: Add more commands */
-
+	{ "si", "Execute specified times you want", cmd_si },
+	{ "info", "Print registers's value", cmd_info },
+	{ "x", "Scan memory", cmd_x },
+	{ "p", "Expression evaluation",cmd_p},
+	{ "w","Watchpoint setting",cmd_w},
+	{ "d","Delete watchpoint",cmd_d}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
