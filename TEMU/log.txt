@@ -1,5 +1,35 @@
-[./temu/src/monitor/expr.c,90,make_token] match rules[10] = "\$[a-z]+" at position 0 with len 3: $at
-[./temu/src/monitor/expr.c,90,make_token] match rules[0] = " +" at position 3 with len 1:  
-[./temu/src/monitor/expr.c,90,make_token] match rules[11] = "==" at position 4 with len 2: ==
-[./temu/src/monitor/expr.c,90,make_token] match rules[0] = " +" at position 6 with len 1:  
-[./temu/src/monitor/expr.c,90,make_token] match rules[7] = "0x[0-9a-fA-F]+" at position 7 with len 6: 0x1010
+       0:   3c 08 ab cd         lui   $t0,   0xabcd
+       4:   35 10 12 34         ori   $s0,   $t0,   0x1234
+       8:   3c 11 12 34         lui   $s1,   0x1234
+       c:   3c 09 80 00         lui   $t1,   0x8000
+      10:   3c 0a 80 00         lui   $t2,   0x8000
+      14:   01 2a 90 21         addu   $s2,   $t1,   $t2
+      18:   3c 0b 11 11         lui   $t3,   0x1111
+      1c:   35 6b 11 11         ori   $t3,   $t3,   0x1111
+      20:   3c 0c 22 22         lui   $t4,   0x2222
+      24:   35 8c 22 22         ori   $t4,   $t4,   0x2222
+      28:   15 6c 00 04         bne   $t3,   $t4,   4
+      3c:   24 13 00 00         addiu $s3,   $zero,   0
+      40:   3c 0d ab cd         lui   $t5,   0xabcd
+      44:   35 ad 12 34         ori   $t5,   $t5,   0x1234
+      48:   31 b4 ff 00         andi  $s4,   $t5,   0xff00
+      4c:   3c 0e ff ff         lui   $t6,   0xffff
+      50:   3c 0f 00 ff         lui   $t7,   0x00ff
+      54:   35 ef ff 00         ori   $t7,   $t7,   0xff00
+      58:   01 cf a8 25         or    $s5,   $t6,   $t7
+      5c:   01 cf b0 26         xor    $s6,   $t6,   $t7
+      60:   24 17 fe 0c         addiu $s7,   $zero,   -500
+      64:   3c 08 33 33         lui   $t0,   0x3333
+      68:   35 08 33 33         ori   $t0,   $t0,   0x3333
+      6c:   3c 09 33 33         lui   $t1,   0x3333
+      70:   35 29 33 33         ori   $t1,   $t1,   0x3333
+      74:   11 09 00 04         beq   $t0,   $t1,   4
+      88:   24 0a 00 00         addiu $t2,   $zero,   0
+      8c:   3c 0b 80 01         lui   $t3,   0x8001
+      90:   25 6b 00 04         addiu $t3,   $t3,   4
+      94:   81 6c 00 00         lb    $t4,   0($t3)
+      98:   81 6d 00 01         lb    $t5,   1($t3)
+      9c:   3c 0e 12 34         lui   $t6,   0x1234
+      a0:   35 ce 56 78         ori   $t6,   $t6,   0x5678
+      a4:   3c 0f 80 01         lui   $t7,   0x8001
+      a8:   25 ef 00 09         addiu $t7,   $t7,   9
