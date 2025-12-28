@@ -20,19 +20,6 @@ static void decode_r_type(uint32_t instr) {
 	op_dest->reg = (instr & RD_MASK) >> (SHAMT_SIZE + FUNC_SIZE);
 }
 
-static void decode_r_shift_type(uint32_t instr) {
-    op_src1->type = OP_TYPE_REG;
-    op_src1->reg = (instr & RS_MASK) >> (RT_SIZE + IMM_SIZE); // 移位指令中rs未使用，仅占位
-    op_src1->val = 0; // 冗余字段置0
-    
-    op_src2->type = OP_TYPE_REG;
-    op_src2->reg = (instr & RT_MASK) >> (RD_SIZE + SHAMT_SIZE + FUNC_SIZE); // rt为操作数寄存器
-    op_src2->val = reg_w(op_src2->reg);
-    
-    op_dest->type = OP_TYPE_REG;
-    op_dest->reg = (instr & RD_MASK) >> (SHAMT_SIZE + FUNC_SIZE); // rd为目标寄存器
-}
-
 make_helper(and) {
 
 	decode_r_type(instr);
