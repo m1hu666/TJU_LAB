@@ -85,7 +85,7 @@ make_helper(sw) {
 	uint32_t vaddr = op_src1->val + op_src2 -> simm;
 	Assert(vaddr % 4 == 0, "sw addr error\n");
 	uint32_t paddr = vaddr & 0x7fffffff;
-	mem_write(paddr, reg_w(op_dest->reg), 4);
+	mem_write(paddr, 4, reg_w(op_dest->reg));
 	sprintf(assembly, "sw    %s,   %d(%s)", REG_NAME(op_dest->reg), op_src2->simm, REG_NAME(op_src1->reg));
 }
 
@@ -130,16 +130,16 @@ make_helper(sb) {
 	uint32_t vaddr = op_src1->val + op_src2 -> simm;
 	uint32_t paddr = vaddr & 0x7fffffff;
     uint8_t data = reg_w(op_dest->reg) & 0xFF;
-    mem_write(paddr, data, 1);
+    mem_write(paddr, 1, data);
 	sprintf(assembly, "sb    %s,   %d(%s)", REG_NAME(op_dest->reg), op_src2->simm, REG_NAME(op_src1->reg));
 }
 
 make_helper(blez) {
 
-	decode_simm_type(instr);
-	if(op_src1->val <= 0) {
-		cpu.pc += (op_src2->simm << 2);
-	}
-	sprintf(assembly, "blez   %s,   %d", REG_NAME(op_src1->reg), op_src2->simm);
+    decode_simm_type(instr);
+    int32_t v = (int32_t)op_src1->val;   // 按有符号数理解寄存器
+    if (v <= 0) {
+        cpu.pc += (op_src2->simm << 2);
+    }
+    sprintf(assembly, "blez   %s,   %d", REG_NAME(op_src1->reg), op_src2->simm);
 }
-
