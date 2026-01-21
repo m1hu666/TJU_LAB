@@ -1,12 +1,35 @@
-       0:   3c 08 12 34         lui   $t0,   0x1234
-       4:   35 08 ab cd         ori   $t0,   $t0,   0xabcd
-       8:   24 09 00 10         addiu $t1,   $zero,   16
-       c:   24 0a 00 20         addiu $t2,   $zero,   32
-      10:   01 2a 58 21         addu   $t3,   $t1,   $t2
-      14:   34 0c f0 f0         ori   $t4,   $zero,   0xf0f0
-      18:   31 8d 0f f0         andi  $t5,   $t4,   0x0ff0
-      1c:   34 0e 00 f0         ori   $t6,   $zero,   0x00f0
-      20:   34 0f 00 0f         ori   $t7,   $zero,   0x000f
-      24:   01 cf c0 25         or    $t8,   $t6,   $t7
-[./temu/src/monitor/expr.c,90,make_token] match rules[10] = "\$[a-z]+" at position 0 with len 2: $t
-[./temu/src/monitor/expr.c,90,make_token] match rules[9] = "[0-9]+" at position 2 with len 1: 0
+       0:   3c 10 80 01         lui   $s0,   0x8001
+       4:   34 01 00 ff         ori   $at,   $zero,   0x00ff
+       8:   00 00 00 00         sll   $zero,   $zero,   0
+       c:   00 00 00 00         sll   $zero,   $zero,   0
+      10:   00 00 00 00         sll   $zero,   $zero,   0
+      14:   a2 01 00 03         sb    $at,   3($s0)
+      18:   34 01 00 ee         ori   $at,   $zero,   0x00ee
+      1c:   00 00 00 00         sll   $zero,   $zero,   0
+      20:   00 00 00 00         sll   $zero,   $zero,   0
+      24:   00 00 00 00         sll   $zero,   $zero,   0
+      28:   a2 01 00 02         sb    $at,   2($s0)
+      2c:   34 01 00 dd         ori   $at,   $zero,   0x00dd
+      30:   00 00 00 00         sll   $zero,   $zero,   0
+      34:   00 00 00 00         sll   $zero,   $zero,   0
+      38:   00 00 00 00         sll   $zero,   $zero,   0
+      3c:   a2 01 00 01         sb    $at,   1($s0)
+      40:   34 01 00 cc         ori   $at,   $zero,   0x00cc
+      44:   00 00 00 00         sll   $zero,   $zero,   0
+      48:   00 00 00 00         sll   $zero,   $zero,   0
+      4c:   00 00 00 00         sll   $zero,   $zero,   0
+      50:   a2 01 00 00         sb    $at,   0($s0)
+      54:   82 02 00 03         lb    $v0,   3($s0)
+      58:   00 00 00 00         sll   $zero,   $zero,   0
+      5c:   3c 01 44 55         lui   $at,   0x4455
+      60:   00 00 00 00         sll   $zero,   $zero,   0
+      64:   00 00 00 00         sll   $zero,   $zero,   0
+      68:   00 00 00 00         sll   $zero,   $zero,   0
+      6c:   34 21 66 77         ori   $at,   $at,   0x6677
+      70:   00 00 00 00         sll   $zero,   $zero,   0
+      74:   00 00 00 00         sll   $zero,   $zero,   0
+      78:   00 00 00 00         sll   $zero,   $zero,   0
+      7c:   ae 01 00 08         sw    $at,   8($s0)
+      80:   8e 02 00 08         lw    $v0,   8($s0)
+      84:   00 00 00 00         sll   $zero,   $zero,   0
+      88:   4a 00 00 00         sll   $zero,   $zero,   0
