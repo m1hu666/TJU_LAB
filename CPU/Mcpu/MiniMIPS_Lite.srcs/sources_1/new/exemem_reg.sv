@@ -9,6 +9,7 @@ module exemem_reg (
     input  wire [`REG_ADDR_BUS] exe_wa,
     input  wire                 exe_wreg,
     input  wire [`REG_BUS 	  ] exe_wd,
+    input  wire [`REG_BUS     ] exe_mem_data,
     input  wire [`INST_ADDR_BUS]  exe_debug_wb_pc, // 供调试使用的PC值，上板测试时务必删除该信号
     
     // 送到访存阶段的信息 
@@ -16,6 +17,7 @@ module exemem_reg (
     output reg  [`REG_ADDR_BUS] mem_wa,
     output reg                  mem_wreg,
     output reg  [`REG_BUS 	  ] mem_wd,
+    output reg  [`REG_BUS     ] mem_mem_data,
     output reg  [`INST_ADDR_BUS]  mem_debug_wb_pc  // 供调试使用的PC值，上板测试时务必删除该信号
     );
 
@@ -25,6 +27,7 @@ module exemem_reg (
         mem_wa 				   <= `REG_NOP;
         mem_wreg   			   <= `WRITE_DISABLE;
         mem_wd   			   <= `ZERO_WORD;
+        mem_mem_data           <= `ZERO_WORD;
         mem_debug_wb_pc        <= `PC_INIT;   // 上板测试时务必删除该语句
     end
     else begin
@@ -32,6 +35,7 @@ module exemem_reg (
         mem_wa 				   <= exe_wa;
         mem_wreg 			   <= exe_wreg;
         mem_wd 		    	   <= exe_wd;
+        mem_mem_data           <= exe_mem_data;
         mem_debug_wb_pc        <= exe_debug_wb_pc;   // 上板测试时务必删除该语句
     end
   end

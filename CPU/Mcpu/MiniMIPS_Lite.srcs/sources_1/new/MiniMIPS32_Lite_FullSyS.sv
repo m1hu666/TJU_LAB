@@ -28,10 +28,12 @@ module MiniMIPS32_Lite_FullSyS(
     wire [ 4:0] debug_wb_rf_wnum;  // 供调试使用的PC值，上板测试时务必删除该信号 
     wire [31:0] debug_wb_rf_wdata;  // 供调试使用的PC值，上板测试时务必删除该信号 
 
-     /* ---------TODO---------
-     * 添加 data_ram 相关信号
-     * 实例化 MiniMIPS32_Lite 中连接 data_ram 相关信号
-     * ---------------------- */
+    // 数据存储器相关信号
+    logic [31:0] daddr;
+    logic [31:0] drdata;
+    logic [31:0] dwdata;
+    logic        dwe;
+    logic [3:0]  dce;
     
     logic [31:0] iaddr;
     logic [31:0] inst;
@@ -42,6 +44,12 @@ module MiniMIPS32_Lite_FullSyS(
         
         .iaddr(iaddr),
         .inst(inst),
+        
+        .daddr(daddr),
+        .drdata(drdata),
+        .dwdata(dwdata),
+        .dwe(dwe),
+        .dce(dce),
         
         .debug_wb_pc(debug_wb_pc),
         .debug_wb_rf_wen(debug_wb_rf_wen),
@@ -54,7 +62,12 @@ module MiniMIPS32_Lite_FullSyS(
       .spo(inst)  // output wire [31 : 0] spo
     );
     
-    /* ---------TODO---------
-     * 实例化 data_ram
-     * ---------------------- */
+    // 数据存储器实例化
+    data_ram data_ram0 (
+      .clk(cpu_clk),           // input wire clk
+      .a(daddr[15:2]),         // input wire [13 : 0] a
+      .d(dwdata),              // input wire [31 : 0] d
+      .we(dwe),                // input wire we
+      .spo(drdata)             // output wire [31 : 0] spo
+    );
 endmodule

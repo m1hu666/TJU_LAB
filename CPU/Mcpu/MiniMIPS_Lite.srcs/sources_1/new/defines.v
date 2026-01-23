@@ -33,20 +33,29 @@
 `define LOGIC           3'b010
 `define MOVE            3'b011
 `define SHIFT           3'b100
+`define BRANCH          3'b101
 
 // ÄÚ²¿²Ù×÷Âëaluop
 `define MINIMIPS32_LUI             8'h05
 `define MINIMIPS32_MFHI            8'h0C
 `define MINIMIPS32_MFLO            8'h0D
 `define MINIMIPS32_SLL             8'h11
+`define MINIMIPS32_SRAV            8'h13
 `define MINIMIPS32_MULT            8'h14
 `define MINIMIPS32_ADD             8'h18
-`define MINIMIPS32_ADDIU           8'h19
+`define MINIMIPS32_ADDU            8'h19
+`define MINIMIPS32_ADDIU           8'h1A
 `define MINIMIPS32_SUBU            8'h1B
 `define MINIMIPS32_AND             8'h1C
+`define MINIMIPS32_ANDI            8'h1E
 `define MINIMIPS32_ORI             8'h1D
+`define MINIMIPS32_OR              8'h1F
+`define MINIMIPS32_XOR             8'h20
 `define MINIMIPS32_SLT             8'h26
 `define MINIMIPS32_SLTIU           8'h27
+`define MINIMIPS32_BEQ             8'h60
+`define MINIMIPS32_BNE             8'h61
+`define MINIMIPS32_BLEZ            8'h62
 `define MINIMIPS32_LB              8'h90
 `define MINIMIPS32_LW              8'h92
 `define MINIMIPS32_SB              8'h98
