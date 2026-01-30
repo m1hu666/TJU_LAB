@@ -1,2 +1,2 @@
 # change the testcase name
-USER_PROGRAM := test1
+USER_PROGRAM := my_test
