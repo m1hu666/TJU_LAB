@@ -27,7 +27,7 @@ module mem_stage (
     wire is_load = (mem_aluop_i == `MINIMIPS32_LW) || (mem_aluop_i == `MINIMIPS32_LB);
     wire is_store = (mem_aluop_i == `MINIMIPS32_SW) || (mem_aluop_i == `MINIMIPS32_SB);
     
-    // 【关键修复】：如果 MEM 阶段被暂停 (stall[4] 为真)，强制关闭写使能
+    // 如果 MEM 阶段被暂停 (stall[4] 为真)，强制关闭写使能
     // 否则 SoC 会在暂停期间误以为每一拍都要写内存/UART
     assign dwe = is_store && (stall[4] == `FALSE_V);
 

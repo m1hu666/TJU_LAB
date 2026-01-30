@@ -13,7 +13,6 @@ module ctrl(
             stall = 6'b000000;
         end
         else if (stallreq_mem == `TRUE_V) begin
-            // 【关键修改】
             // 原来是 011111 (暂停全流水线)
             // 改为   000111 (只暂停 PC, IF, ID)
             // 解释：指令ROM忙碌只影响取指。已经在流水线里的 EXE/MEM 指令应该继续跑，

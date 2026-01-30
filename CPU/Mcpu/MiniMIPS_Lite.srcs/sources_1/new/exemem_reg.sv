@@ -28,7 +28,7 @@ module exemem_reg (
             mem_wd   		<= `ZERO_WORD;
             mem_mem_data    <= `ZERO_WORD;
         end
-        // 关键修正：EXE暂停但MEM继续时，插入气泡(NOP)，防止指令重复执行
+        // EXE暂停但MEM继续时，插入气泡(NOP)，防止指令重复执行
         else if (stall[3] == `TRUE_V && stall[4] == `FALSE_V) begin
             mem_aluop       <= `MINIMIPS32_SLL; // NOP
             mem_wa 			<= `REG_NOP;

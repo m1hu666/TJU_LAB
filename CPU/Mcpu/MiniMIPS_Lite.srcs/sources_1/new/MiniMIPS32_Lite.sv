@@ -186,8 +186,7 @@ module MiniMIPS32_Lite(
                       wb_wd_o        // 写回数据(辅助判断程序进展)
             );
 
-            // 【异常捕捉】: 如果不在复位期间，且PC突然变为0 (注意MIPS通常从0开始复位，但运行中不应回0，除非特意跳转)
-            // 如果你的PC初始值不是0 (比如是 0x80000000)，请将 32'h0 改为你的初始PC值
+            // 如果不在复位期间，且PC突然变为0 (注意MIPS通常从0开始复位，但运行中不应回0，除非特意跳转)
             if (pc == 32'h80000000 && cpu_rst_n == 1'b1) begin
                  $fdisplay(log_file, "!!! ABNORMAL RESET DETECTED: PC hit 0x0 while RST is inactive !!!");
             end

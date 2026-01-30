@@ -70,3 +70,4 @@ module MiniMIPS32_Lite_FullSyS(
       .spo(drdata)             // output wire [31 : 0] spo
     );
 endmodule
+//3023244073 hya666

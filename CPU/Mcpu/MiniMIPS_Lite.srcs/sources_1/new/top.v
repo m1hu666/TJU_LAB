@@ -1,4 +1,4 @@
-//3023244073 hya666
+
 module top(
     input   clk,
     input   locked,
